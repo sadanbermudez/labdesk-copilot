@@ -1,0 +1,30 @@
+spec: "1.1"
+
+devices:
+  pm100:
+    eom:
+      USB INSTR:
+        q: "\n"
+        r: "\n"
+    error: ERROR
+    dialogues:
+      - q: "*IDN?"
+        r: "Thorlabs,PM100USB,P2000123,1.7.0"
+      - q: "MEAS:POW?"
+        r: "1.234E-01"
+    properties:
+      wavelength:
+        default: 633
+        getter:
+          q: "SENS:CORR:WAV?"
+          r: "{:g}"
+        setter:
+          q: "SENS:CORR:WAV {:g}"
+        specs:
+          min: 400
+          max: 1100
+          type: float
+
+resources:
+  USB0::0x1313::0x8078::P2000123::INSTR:
+    device: pm100

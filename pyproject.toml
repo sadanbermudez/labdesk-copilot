@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "labdesk"
+version = "0.1.0"
+description = "A documentation-grounded support assistant for PyVISA, with evals, telemetry and a read-only instrument tool."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Sergio Adan Bermudez" }]
+dependencies = [
+    "fastapi==0.115.6",
+    "uvicorn==0.32.1",
+    "httpx==0.28.1",
+    "pyvisa==1.16.2",
+    "pyvisa-sim==0.7.1",
+]
+
+[project.optional-dependencies]
+test = ["pytest==9.1.1"]
+
+[project.scripts]
+labdesk = "labdesk.api:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+labdesk = ["static/*", "pm100_sim.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,796 @@
+{
+  "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
+  "retrieval": {
+    "recall@5": 1.0,
+    "mrr": 0.9176767676767676,
+    "n": 33,
+    "misses": []
+  },
+  "correctness": 0.8787878787878788,
+  "citation_validity": 0.9393939393939394,
+  "over_refusal": 0.030303030303030304,
+  "refusal_accuracy": 1.0,
+  "tool_accuracy": "2/2",
+  "latency_p50_s": 3.33,
+  "latency_p95_s": 6.01,
+  "tokens_in_per_q": 1906,
+  "tokens_out_per_q": 66,
+  "cost_per_1000_q_usd": 0.3256,
+  "rows": [
+    {
+      "id": "list-resources",
+      "kind": "doc",
+      "question": "How do I see which instruments are connected?",
+      "answer": "The provided documentation does not contain instructions on how to list or see which instruments are connected.\n\nThe PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 23.16,
+      "prompt_tokens": 1946,
+      "completion_tokens": 32,
+      "tool_used": false,
+      "missing": [
+        [
+          "list_resources"
+        ]
+      ],
+      "correct": false,
+      "citation_ok": false,
+      "pass": false
+    },
+    {
+      "id": "list-default-filter",
+      "kind": "doc",
+      "question": "What filter does list_resources use by default, and how do I list every resource?",
+      "answer": "By default, `list_resources` uses the filter `'?*::INSTR'`, which lists only instruments whose resource names end with `'::INSTR'` [S1]. To list all available resources, you should pass `'?'` to the method [S1].\n\n```python\n>>> rm.list_resources('?')\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.23,
+      "prompt_tokens": 1487,
+      "completion_tokens": 68,
+      "tool_used": false,
+      "missing": [
+        [
+          "'\\?\\*'|\\\"\\?\\*\\\"|`\\?\\*`"
+        ]
+      ],
+      "correct": false,
+      "citation_ok": true,
+      "pass": false
+    },
+    {
+      "id": "query-what",
+      "kind": "doc",
+      "question": "What does the query method do?",
+      "answer": "The `query` method performs a `write` followed by a `read` operation [S1]. It allows you to pause between the write and read operations using the `query_delay` attribute or argument [S2].\n\n```python\n>>> print(my_instrument.query('*IDN?'))\n```",
+      "refused": false,
+      "cited": [
+        "S1",
+        "S2"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.44,
+      "prompt_tokens": 1673,
+      "completion_tokens": 63,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": false,
+      "pass": false
+    },
+    {
+      "id": "timeout-units",
+      "kind": "doc",
+      "question": "In what units is the instrument timeout given?",
+      "answer": "The instrument timeout is given in milliseconds [S1]. For all PyVISA objects, the timeout is set in milliseconds [S2].\n\n```python\nmy_device.timeout = 25000  # Sets timeout to 25 seconds (25000 ms)\n```",
+      "refused": false,
+      "cited": [
+        "S1",
+        "S2"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.01,
+      "prompt_tokens": 1509,
+      "completion_tokens": 62,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "timeout-infinite",
+      "kind": "doc",
+      "question": "How do I set an infinite timeout?",
+      "answer": "To set an infinite timeout, you can set the timeout attribute to `None`, `float('+inf')`, or delete the attribute entirely [S1].\n\n```python\nmy_device.timeout = None\n# or\ndel my_device.timeout\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.5,
+      "prompt_tokens": 1325,
+      "completion_tokens": 51,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "timeout-25s",
+      "kind": "doc",
+      "question": "How do I set a 25 second timeout on my device?",
+      "answer": "To set a 25-second timeout on your device, you must assign the value in milliseconds, as PyVISA uses milliseconds for timeouts [S1]. Since 25 seconds equals 25,000 milliseconds, you can set the timeout using the following code:\n\n```python\nmy_device.timeout = 25000\n```\n\n[S1]",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.35,
+      "prompt_tokens": 1787,
+      "completion_tokens": 78,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "baud-default",
+      "kind": "doc",
+      "question": "What is the default baud rate for serial instruments?",
+      "answer": "The default baud rate for serial instruments is 9600 [S1]. You can verify this in the PyVISA shell where `baud_rate` shows a value of 9600 [S5].\n\n```python\n>>> my_instrument.baud_rate\n9600\n```",
+      "refused": false,
+      "cited": [
+        "S1",
+        "S5"
+      ],
+      "invalid_citations": [],
+      "latency_s": 4.82,
+      "prompt_tokens": 3453,
+      "completion_tokens": 65,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "baud-set",
+      "kind": "doc",
+      "question": "How do I change the baud rate of a serial instrument?",
+      "answer": "To change the baud rate of a serial instrument, set the `baud_rate` attribute on the resource object [S2]. The default baud rate is 9600, but you should verify the correct value in your instrument's manual [S1].\n\n```python\n>>> my_instrument.baud_rate = 57600\n```",
+      "refused": false,
+      "cited": [
+        "S2",
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 4.94,
+      "prompt_tokens": 3457,
+      "completion_tokens": 74,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "term-attrs",
+      "kind": "doc",
+      "question": "My query times out. Which attributes control the termination characters?",
+      "answer": "The attributes that control termination characters are `read_termination` and `write_termination` [S2]. You can set these attributes on the resource object to configure how the computer detects the end of commands and when the instrument is done talking [S2].\n\n```python\nmy_instrument.read_termination = '\\n'\nmy_instrument.write_termination = '\\n'\n```",
+      "refused": false,
+      "cited": [
+        "S2"
+      ],
+      "invalid_citations": [],
+      "latency_s": 5.24,
+      "prompt_tokens": 3048,
+      "completion_tokens": 80,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "term-rs232",
+      "kind": "doc",
+      "question": "What is the default read termination for RS232?",
+      "answer": "The default read termination for RS232 is `\\r` [S1].",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.59,
+      "prompt_tokens": 1974,
+      "completion_tokens": 18,
+      "tool_used": false,
+      "missing": [
+        [
+          "\\r",
+          "carriage return",
+          "\\bCR\\b"
+        ]
+      ],
+      "correct": false,
+      "citation_ok": true,
+      "pass": false
+    },
+    {
+      "id": "term-common",
+      "kind": "doc",
+      "question": "What termination characters are common?",
+      "answer": "Common termination characters include line feed (`'\\n'`), carriage return (`'\\r'`), and the null byte (`'\\0'`) [S5]. Additionally, the sequence carriage return plus line feed (`'\\r\\n'`) is supported [S2]. The default value depends on the bus system, such as `'\\r'` for RS232 [S1].",
+      "refused": false,
+      "cited": [
+        "S5",
+        "S2",
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.39,
+      "prompt_tokens": 1751,
+      "completion_tokens": 80,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "query-delay",
+      "kind": "doc",
+      "question": "How do I add a pause between the write and the read of a query?",
+      "answer": "You can add a pause between the write and read operations of a query using the `query_delay` attribute or argument [S1]. This can be set globally on the instrument object or passed as an argument to the `query` method call [S1]. For example, you can set `query_delay=0.1` to wait 100 ms after writing before reading [S2].\n\n```python\n# Set globally\nmy_instrument.query_delay = 0.1\nmy_instrument.query('*IDN?')\n\n# Or pass as argument\nmy_instrument.query('*IDN?', query_delay=0.1)\n```",
+      "refused": false,
+      "cited": [
+        "S1",
+        "S2"
+      ],
+      "invalid_citations": [],
+      "latency_s": 4.25,
+      "prompt_tokens": 1783,
+      "completion_tokens": 134,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "send-end",
+      "kind": "doc",
+      "question": "What does send_end do?",
+      "answer": "`send_end` is a boolean option that, when set to `True` (the default), asserts the EOI line after each write operation to signal the end of the operation [S1]. While EOI is GPIB-specific, similar actions are taken for other interfaces [S1]. Omitting EOI by setting `send_end=False` is not recommended unless you know what you are doing [S1].\n\nExample usage:\n```python\nmy_instrument = rm.open_resource(\"GPIB::10\", send_end=False, delay=1.2)\n```\n[S1]",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 6.01,
+      "prompt_tokens": 3215,
+      "completion_tokens": 125,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "backend-py",
+      "kind": "doc",
+      "question": "How do I use the pure Python backend instead of NI-VISA?",
+      "answer": "To use the pure Python backend (provided by `pyvisa-py`) instead of the default NI-VISA backend, you can specify the `@py` alias when creating the `ResourceManager` [S2]. Alternatively, you can set the `PYVISA_LIBRARY` environment variable to `py` [S2].\n\n```python\nimport pyvisa\n\nrm = pyvisa.ResourceManager('@py')\n```",
+      "refused": false,
+      "cited": [
+        "S2"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.34,
+      "prompt_tokens": 1841,
+      "completion_tokens": 85,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "backend-env",
+      "kind": "doc",
+      "question": "Which environment variable selects the PyVISA backend?",
+      "answer": "The environment variable that selects the PyVISA backend is `PYVISA_LIBRARY` [S1]. It takes the same values as the `ResourceManager` constructor [S1].",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.51,
+      "prompt_tokens": 1773,
+      "completion_tokens": 37,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "pyvisarc",
+      "kind": "doc",
+      "question": "How do I make a VISA library path the default for all my PyVISA programs?",
+      "answer": "You can make a specific VISA library the default for all PyVISA applications by creating a configuration file named `.pyvisarc` (with a leading dot) in your home directory [S1]. The location of this file depends on your operating system, such as `/home/<username>` on Linux or `C:\\Users\\<username>` on Windows [S1].\n\nHere is how you can specify the library path in the constructor, which you would then configure globally via the file:\n\n```python\n>>> rm = ResourceManager('Path to library')\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 4.0,
+      "prompt_tokens": 1889,
+      "completion_tokens": 115,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "not-found",
+      "kind": "doc",
+      "question": "I get 'Could not find VISA library'. What should I check?",
+      "answer": "This error occurs when you have not provided a path for the VISA library and PyVISA is unable to find it automatically [S1]. You can resolve this by creating a configuration file as described in the configuring documentation [S1], or by explicitly providing the library path to the `VisaLibrary` or `ResourceManager` constructor [S1].\n\nFor example:\n\n```python\n>>> visalib = VisaLibrary('/path/to/library')\n```\n\nor\n\n```python\n>>> rm = ResourceManager('Path to library')\n```\n\nIf you are using Python built for Cygwin on Windows, ensure you are running the Cygwin build of Python and specify the location of `visa32.dll` or `visa64.dll` using Cygwin paths [S1].",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 4.81,
+      "prompt_tokens": 1977,
+      "completion_tokens": 163,
+      "tool_used": false,
+      "missing": [
+        [
+          "bit"
+        ]
+      ],
+      "correct": false,
+      "citation_ok": true,
+      "pass": false
+    },
+    {
+      "id": "bitness",
+      "kind": "doc",
+      "question": "Does the Python bitness have to match the VISA library?",
+      "answer": "Yes, the Python bitness must match the VISA library bitness [S1]. PyVISA cannot open a 32-bit VISA library while running in 64-bit Python, or vice versa [S3]. If there is a mismatch, you will encounter an error indicating no matching architecture [S2]. To resolve this, you must either install a VISA library that matches your Python architecture or install a Python version that matches your VISA library architecture [S2].",
+      "refused": false,
+      "cited": [
+        "S1",
+        "S3",
+        "S2"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.64,
+      "prompt_tokens": 1855,
+      "completion_tokens": 100,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "dll-paths",
+      "kind": "doc",
+      "question": "On Windows the VISA dll can't find its dependencies. How do I add extra dll search paths?",
+      "answer": "To add extra DLL search paths on Windows, create a `.pyvisarc` configuration file and set the `dll_extra_paths` option [S1]. You can define this file site-wide or in your home directory [S2].\n\nExample `.pyvisarc` content:\n\n```ini\n[Paths]\n\ndll_extra_paths: C:\\Program Files\\Keysight\\IO Libraries Suite\\bin;C:\\Program Files (x86)\\Keysight\\IO Libraries Suite\\bin\n```",
+      "refused": false,
+      "cited": [
+        "S1",
+        "S2"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.69,
+      "prompt_tokens": 1631,
+      "completion_tokens": 102,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "thread-safe",
+      "kind": "doc",
+      "question": "Is PyVISA thread safe?",
+      "answer": "Yes, PyVISA is thread safe [S1]. This is achieved because, starting in version 1.6, the state returned by the library is stored per resource, and warnings can also be silenced per resource [S1].",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.68,
+      "prompt_tokens": 1600,
+      "completion_tokens": 49,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "logging",
+      "kind": "doc",
+      "question": "How do I turn on PyVISA's logging to debug my program?",
+      "answer": "To enable screen logging for debugging, call `pyvisa.log_to_screen()` [S2]. This helps ensure PyVISA is correctly finding the DLL files [S2].\n\n```python\nimport pyvisa\npyvisa.log_to_screen()\n```",
+      "refused": false,
+      "cited": [
+        "S2"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.57,
+      "prompt_tokens": 1391,
+      "completion_tokens": 52,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "bug-report",
+      "kind": "doc",
+      "question": "What should I include when I report a bug?",
+      "answer": "When reporting a bug, you should include the operating system, Python version, and library version [S1]. You may also add supporting information by pasting the output of the `pyvisa-info` command [S1].\n\n```bash\npyvisa-info\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 1.82,
+      "prompt_tokens": 589,
+      "completion_tokens": 55,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "com2",
+      "kind": "doc",
+      "question": "What resource name do I use for an instrument on COM2?",
+      "answer": "For an instrument on COM2, you can use the resource name `ASRL2` [S1]. Most VISA systems also allow the alias `COM2` [S1].\n\n```python\n>>> rm.open_resource('ASRL2')\n# or\n>>> rm.open_resource('COM2')\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.04,
+      "prompt_tokens": 1593,
+      "completion_tokens": 66,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "socket",
+      "kind": "doc",
+      "question": "What is the resource name for raw TCP/IP access to port 999 at 1.2.3.4?",
+      "answer": "The resource name for raw TCP/IP access to port 999 at IP address 1.2.3.4 is `TCPIP0::1.2.3.4::999::SOCKET` [S1].",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.62,
+      "prompt_tokens": 2292,
+      "completion_tokens": 51,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "lan-device",
+      "kind": "doc",
+      "question": "What is the default LAN device name in a TCPIP INSTR resource string?",
+      "answer": "The default LAN device name in a TCPIP INSTR resource string is `inst0` [S3].",
+      "refused": false,
+      "cited": [
+        "S3"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.15,
+      "prompt_tokens": 2271,
+      "completion_tokens": 22,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "case",
+      "kind": "doc",
+      "question": "Are resource names case sensitive?",
+      "answer": "No, the resource name is case-insensitive [S1]. It does not matter whether you use uppercase or lowercase letters, such as ``\"ASRL2\"`` or ``\"asrl2\"`` [S1].",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.49,
+      "prompt_tokens": 1426,
+      "completion_tokens": 47,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "ascii-numpy",
+      "kind": "doc",
+      "question": "How do I get the result of query_ascii_values as a numpy array?",
+      "answer": "You can specify the `container` argument in `query_ascii_values` to directly return a `numpy.array`, which avoids creating an intermediate list [S1].\n\n```python\n>>> values = inst.query_ascii_values('CURV?', container=numpy.array)\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.63,
+      "prompt_tokens": 1391,
+      "completion_tokens": 55,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "binary-endian",
+      "kind": "doc",
+      "question": "How do I read big-endian binary data with query_binary_values?",
+      "answer": "To read big-endian binary data, you must explicitly set the `is_big_endian` parameter to `True` in the `query_binary_values` method, as PyVISA assumes little-endian by default [S1]. You should also specify the correct `datatype` (e.g., 'd' for doubles) [S1].\n\n```python\n>>> values = inst.query_binary_values('CURV?', datatype='d', is_big_endian=True)\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.37,
+      "prompt_tokens": 1515,
+      "completion_tokens": 96,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "binary-noterm",
+      "kind": "doc",
+      "question": "My binary read times out because the device omits the termination character. What can I do?",
+      "answer": "You can pass `expect_termination=False` to the binary read function to prevent PyVISA from looking for a termination character at the end of the message [S3]. Before doing this, ensure you can read from the instrument using `read_raw` and verify that the advertised length of the data block matches the data received [S3].\n\n```python\nvalues = inst.query_binary_values('CURV?', expect_termination=False)\n```",
+      "refused": false,
+      "cited": [
+        "S3"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.8,
+      "prompt_tokens": 2038,
+      "completion_tokens": 91,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "ask-renamed",
+      "kind": "doc",
+      "question": "My old code uses inst.ask(). What is it called now?",
+      "answer": "The method `ask` is now called `query` [S1]. An alias `ask -> query` was created to ease the transition [S2].\n\n```python\n# Old code\n# result = inst.ask(\"*IDN?\")\n\n# New code\nresult = inst.query(\"*IDN?\")\n```",
+      "refused": false,
+      "cited": [
+        "S1",
+        "S2"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.33,
+      "prompt_tokens": 1886,
+      "completion_tokens": 67,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "shell-sim",
+      "kind": "doc",
+      "question": "How do I start the PyVISA shell with the simulated backend?",
+      "answer": "You can start the PyVISA shell with the simulated backend by using the `-b sim` flag [S1].\n\n```bash\npyvisa-shell -b sim\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.14,
+      "prompt_tokens": 1213,
+      "completion_tokens": 37,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "events-wait",
+      "kind": "doc",
+      "question": "How do I wait for a service request event?",
+      "answer": "To wait for a service request event, you must first enable the event using `constants.EventType.service_request` and `constants.EventMechanism.queue` [S2]. Then, configure your instrument to generate the service request (e.g., via `*SRE 1`) and start the operation [S1]. Finally, call `wait_on_event` with a specified timeout to block until the event occurs or the time expires [S2].\n\n```python\nfrom pyvisa import ResourceManager, constants\n\nrm = ResourceManager()\n\nwith rm.open_resource(\"TCPIP::192.168.0.2::INSTR\") as instr:\n    event_type = constants.EventType.service_request\n    event_mech = constants.EventMechanism.queue\n\n    instr.enable_event(event_type, event_mech)\n    instr.write(\"*SRE 1\")\n    instr.write(\"INIT\")\n\n    response = instr.wait_on_event(event_type, 1000)\n    assert response.event.event_type == event_type\n    assert response.timed_out == False\n    \n    instr.disable_event(event_type, event_mech)\n```",
+      "refused": false,
+      "cited": [
+        "S2",
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 7.07,
+      "prompt_tokens": 2759,
+      "completion_tokens": 232,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "backend-minimum",
+      "kind": "doc",
+      "question": "What is the minimum set of functions a new backend must implement?",
+      "answer": "The minimum set of functions a new backend must implement includes [S1]:\n\n*   **open_default_resource_manager**: returns a session to the Default Resource Manager resource.\n*   **open**: Opens a session to the specified resource.\n*   **close**: Closes the specified session, event, or find list.\n*   **list_resources**: Returns a tuple of all connected devices matching query.\n\nA simple implementation looks like this [S1]:\n\n```python\nfrom pyvisa.highlevel import VisaLibraryBase\n\nclass MyLibrary(VisaLibraryBase):\n    pass\n\nWRAPPER_CLASS = MyLibrary\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 4.17,
+      "prompt_tokens": 1721,
+      "completion_tokens": 129,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "oos-buy",
+      "kind": "refuse",
+      "question": "Which oscilloscope should I buy for my lab?",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 1.98,
+      "prompt_tokens": 1156,
+      "completion_tokens": 13,
+      "tool_used": false,
+      "pass": true
+    },
+    {
+      "id": "oos-scpi",
+      "kind": "refuse",
+      "question": "What SCPI command sets the averaging on a Keysight 34465A multimeter?",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 2.43,
+      "prompt_tokens": 1814,
+      "completion_tokens": 13,
+      "tool_used": false,
+      "pass": true
+    },
+    {
+      "id": "oos-matlab",
+      "kind": "refuse",
+      "question": "How do I connect to my instrument from MATLAB?",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 2.66,
+      "prompt_tokens": 1987,
+      "completion_tokens": 13,
+      "tool_used": false,
+      "pass": true
+    },
+    {
+      "id": "oos-price",
+      "kind": "refuse",
+      "question": "How much does an NI-VISA licence cost?",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 2.04,
+      "prompt_tokens": 1475,
+      "completion_tokens": 13,
+      "tool_used": false,
+      "pass": true
+    },
+    {
+      "id": "oos-cooking",
+      "kind": "refuse",
+      "question": "What is a good recipe for paella?",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 2.17,
+      "prompt_tokens": 1552,
+      "completion_tokens": 13,
+      "tool_used": false,
+      "pass": true
+    },
+    {
+      "id": "oos-labview",
+      "kind": "refuse",
+      "question": "How do I write a LabVIEW VI to read a GPIB instrument?",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 4.2,
+      "prompt_tokens": 3320,
+      "completion_tokens": 13,
+      "tool_used": false,
+      "pass": true
+    },
+    {
+      "id": "tool-power",
+      "kind": "tool",
+      "question": "What does the power meter read right now?",
+      "answer": "The power meter reads 123.4 mW [T1].",
+      "refused": false,
+      "cited": [
+        "T1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.45,
+      "prompt_tokens": 1699,
+      "completion_tokens": 17,
+      "tool_used": true,
+      "missing": [],
+      "correct": true,
+      "pass": true
+    },
+    {
+      "id": "tool-identity",
+      "kind": "tool",
+      "question": "Is the power meter connected? What model and serial number is it?",
+      "answer": "Yes, the power meter is connected. It is a Thorlabs PM100USB with serial number P2000123 [T1].",
+      "refused": false,
+      "cited": [
+        "T1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.18,
+      "prompt_tokens": 2095,
+      "completion_tokens": 34,
+      "tool_used": true,
+      "missing": [],
+      "correct": true,
+      "pass": true
+    }
+  ]
+}

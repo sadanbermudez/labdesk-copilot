@@ -1,0 +1,41 @@
+{"id": "list-resources", "kind": "doc", "question": "How do I see which instruments are connected?", "gold": ["introduction/communication.rst", "index.rst"], "must": [["list_resources"]]}
+{"id": "list-default-filter", "kind": "doc", "question": "What filter does list_resources use by default, and how do I list every resource?", "gold": ["introduction/communication.rst"], "must": [["\\?\\*::INSTR"], ["'\\?\\*'|\\\"\\?\\*\\\"|`\\?\\*`"]]}
+{"id": "query-what", "kind": "doc", "question": "What does the query method do?", "gold": ["introduction/communication.rst", "faq/migrating.rst"], "must": [["write"], ["read"]]}
+{"id": "timeout-units", "kind": "doc", "question": "In what units is the instrument timeout given?", "gold": ["introduction/resources.rst", "faq/migrating.rst"], "must": [["millisecond"]]}
+{"id": "timeout-infinite", "kind": "doc", "question": "How do I set an infinite timeout?", "gold": ["introduction/resources.rst"], "must": [["None", "inf", "del "]]}
+{"id": "timeout-25s", "kind": "doc", "question": "How do I set a 25 second timeout on my device?", "gold": ["introduction/resources.rst"], "must": [["25000"]]}
+{"id": "baud-default", "kind": "doc", "question": "What is the default baud rate for serial instruments?", "gold": ["introduction/communication.rst", "introduction/shell.rst"], "must": [["9600"]]}
+{"id": "baud-set", "kind": "doc", "question": "How do I change the baud rate of a serial instrument?", "gold": ["introduction/communication.rst"], "must": [["baud_rate"]]}
+{"id": "term-attrs", "kind": "doc", "question": "My query times out. Which attributes control the termination characters?", "gold": ["introduction/communication.rst", "introduction/resources.rst"], "must": [["read_termination"], ["write_termination"]]}
+{"id": "term-rs232", "kind": "doc", "question": "What is the default read termination for RS232?", "gold": ["introduction/resources.rst"], "must": [["\\\\r", "carriage return", "\\bCR\\b"]]}
+{"id": "term-common", "kind": "doc", "question": "What termination characters are common?", "gold": ["introduction/communication.rst"], "must": [["\\\\n", "line feed"], ["\\\\r", "carriage return"]]}
+{"id": "query-delay", "kind": "doc", "question": "How do I add a pause between the write and the read of a query?", "gold": ["introduction/resources.rst", "introduction/communication.rst", "faq/migrating.rst"], "must": [["query_delay"]]}
+{"id": "send-end", "kind": "doc", "question": "What does send_end do?", "gold": ["introduction/resources.rst"], "must": [["EOI"]]}
+{"id": "backend-py", "kind": "doc", "question": "How do I use the pure Python backend instead of NI-VISA?", "gold": ["introduction/configuring.rst", "advanced/backends.rst", "introduction/getting.rst"], "must": [["@py"]]}
+{"id": "backend-env", "kind": "doc", "question": "Which environment variable selects the PyVISA backend?", "gold": ["introduction/configuring.rst"], "must": [["PYVISA_LIBRARY"]]}
+{"id": "pyvisarc", "kind": "doc", "question": "How do I make a VISA library path the default for all my PyVISA programs?", "gold": ["introduction/configuring.rst"], "must": [["pyvisarc"]]}
+{"id": "not-found", "kind": "doc", "question": "I get 'Could not find VISA library'. What should I check?", "gold": ["faq/faq.rst", "introduction/getting.rst", "faq/getting_nivisa.rst"], "must": [["configur", "pyvisarc"], ["ResourceManager", "VisaLibrary", "path"]]}
+{"id": "bitness", "kind": "doc", "question": "Does the Python bitness have to match the VISA library?", "gold": ["introduction/getting.rst", "faq/getting_nivisa.rst", "faq/faq.rst"], "must": [["bit"], ["\\bsame\\b", "\\bmatch"]]}
+{"id": "dll-paths", "kind": "doc", "question": "On Windows the VISA dll can't find its dependencies. How do I add extra dll search paths?", "gold": ["introduction/configuring.rst", "faq/faq.rst"], "must": [["dll_extra_paths"]]}
+{"id": "thread-safe", "kind": "doc", "question": "Is PyVISA thread safe?", "gold": ["faq/faq.rst", "faq/migrating.rst"], "must": [["1\\.6"]]}
+{"id": "logging", "kind": "doc", "question": "How do I turn on PyVISA's logging to debug my program?", "gold": ["faq/faq.rst"], "must": [["log_to_screen"]]}
+{"id": "bug-report", "kind": "doc", "question": "What should I include when I report a bug?", "gold": ["faq/faq.rst"], "must": [["pyvisa-info"]]}
+{"id": "com2", "kind": "doc", "question": "What resource name do I use for an instrument on COM2?", "gold": ["introduction/names.rst"], "must": [["ASRL2"]]}
+{"id": "socket", "kind": "doc", "question": "What is the resource name for raw TCP/IP access to port 999 at 1.2.3.4?", "gold": ["introduction/names.rst"], "must": [["TCPIP0?::1\\.2\\.3\\.4::999::SOCKET"]]}
+{"id": "lan-device", "kind": "doc", "question": "What is the default LAN device name in a TCPIP INSTR resource string?", "gold": ["introduction/names.rst"], "must": [["inst0"]]}
+{"id": "case", "kind": "doc", "question": "Are resource names case sensitive?", "gold": ["introduction/names.rst"], "must": [["insensitive", "doesn.t matter", "not case"]]}
+{"id": "ascii-numpy", "kind": "doc", "question": "How do I get the result of query_ascii_values as a numpy array?", "gold": ["introduction/rvalues.rst"], "must": [["container"]]}
+{"id": "binary-endian", "kind": "doc", "question": "How do I read big-endian binary data with query_binary_values?", "gold": ["introduction/rvalues.rst"], "must": [["is_big_endian"]]}
+{"id": "binary-noterm", "kind": "doc", "question": "My binary read times out because the device omits the termination character. What can I do?", "gold": ["introduction/rvalues.rst"], "must": [["expect_termination"]]}
+{"id": "ask-renamed", "kind": "doc", "question": "My old code uses inst.ask(). What is it called now?", "gold": ["faq/migrating.rst"], "must": [["\\bquery\\b"]]}
+{"id": "shell-sim", "kind": "doc", "question": "How do I start the PyVISA shell with the simulated backend?", "gold": ["introduction/shell.rst"], "must": [["-b\\s+\\S*sim", "--backend\\s+\\S*sim"]]}
+{"id": "events-wait", "kind": "doc", "question": "How do I wait for a service request event?", "gold": ["introduction/event_handling.rst"], "must": [["wait_on_event"]]}
+{"id": "backend-minimum", "kind": "doc", "question": "What is the minimum set of functions a new backend must implement?", "gold": ["advanced/backends.rst"], "must": [["open_default_resource_manager"], ["list_resources"]]}
+{"id": "oos-buy", "kind": "refuse", "question": "Which oscilloscope should I buy for my lab?", "gold": [], "must": []}
+{"id": "oos-scpi", "kind": "refuse", "question": "What SCPI command sets the averaging on a Keysight 34465A multimeter?", "gold": [], "must": []}
+{"id": "oos-matlab", "kind": "refuse", "question": "How do I connect to my instrument from MATLAB?", "gold": [], "must": []}
+{"id": "oos-price", "kind": "refuse", "question": "How much does an NI-VISA licence cost?", "gold": [], "must": []}
+{"id": "oos-cooking", "kind": "refuse", "question": "What is a good recipe for paella?", "gold": [], "must": []}
+{"id": "oos-labview", "kind": "refuse", "question": "How do I write a LabVIEW VI to read a GPIB instrument?", "gold": [], "must": []}
+{"id": "tool-power", "kind": "tool", "question": "What does the power meter read right now?", "gold": [], "must": [["123\\.4"], ["mW", "milliwatt"]]}
+{"id": "tool-identity", "kind": "tool", "question": "Is the power meter connected? What model and serial number is it?", "gold": [], "must": [["PM100USB"], ["P2000123"]]}
