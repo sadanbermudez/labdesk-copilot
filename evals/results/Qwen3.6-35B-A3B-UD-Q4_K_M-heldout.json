@@ -1,0 +1,837 @@
+{
+  "model": "Qwen3.6-35B-A3B-UD-Q4_K_M",
+  "set": "heldout",
+  "retrieval": {
+    "recall@5": 0.9032258064516129,
+    "mrr": 0.7887096774193548,
+    "n": 31,
+    "misses": [
+      {
+        "id": "shell-no-ni",
+        "retrieved": [
+          "introduction/resources.rst",
+          "introduction/getting.rst",
+          "advanced/backends.rst",
+          "introduction/communication.rst",
+          "faq/getting_nivisa.rst"
+        ],
+        "gold": [
+          "introduction/shell.rst"
+        ]
+      },
+      {
+        "id": "no-hardware",
+        "retrieved": [
+          "faq/migrating.rst",
+          "introduction/names.rst",
+          "introduction/communication.rst",
+          "faq/migrating.rst",
+          "introduction/rvalues.rst"
+        ],
+        "gold": [
+          "introduction/shell.rst",
+          "advanced/backends.rst"
+        ]
+      },
+      {
+        "id": "class-selection",
+        "retrieved": [
+          "advanced/architecture.rst",
+          "api/resourcemanager.rst",
+          "introduction/rvalues.rst",
+          "faq/migrating.rst",
+          "api/resources.rst"
+        ],
+        "gold": [
+          "introduction/resources.rst",
+          "introduction/communication.rst"
+        ]
+      }
+    ]
+  },
+  "correctness": 0.8387096774193549,
+  "citation_validity": 0.8709677419354839,
+  "over_refusal": 0.0967741935483871,
+  "refusal_accuracy": 1.0,
+  "tool_accuracy": "3/3",
+  "latency_p50_s": 2.72,
+  "latency_p95_s": 4.78,
+  "tokens_in_per_q": 1508,
+  "tokens_out_per_q": 66,
+  "cost_per_1000_q_usd": 0.2658,
+  "rows": [
+    {
+      "id": "arch-mismatch",
+      "kind": "doc",
+      "question": "Python refuses to load the VISA library and complains about the wrong architecture. How do I fix it?",
+      "answer": "To fix the \"No matching architecture\" error, you must ensure your Python interpreter and VISA library have the same bitness [S1]. You can diagnose the issue by running `pyvisa-info` to check the architectures [S1]. The solution is either to install a VISA library that matches your Python architecture or to install a Python interpreter that matches your VISA library architecture [S1].\n\n```bash\npyvisa-info\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.91,
+      "prompt_tokens": 1146,
+      "completion_tokens": 91,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "ni-endorsed",
+      "kind": "doc",
+      "question": "Is PyVISA an official National Instruments product?",
+      "answer": "No, PyVISA is not an official National Instruments product. It is a Python package that enables control of measurement devices independently of the interface [S2]. While PyVISA includes a backend that wraps the National Instruments VISA library, users must download and install that library themselves [S1].\n\nThe PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [
+        "S2",
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.92,
+      "prompt_tokens": 1660,
+      "completion_tokens": 74,
+      "tool_used": false,
+      "missing": [],
+      "correct": false,
+      "citation_ok": false,
+      "pass": false
+    },
+    {
+      "id": "maintainer",
+      "kind": "doc",
+      "question": "Who maintains PyVISA these days?",
+      "answer": "PyVISA is currently maintained by Matthieu Dartiailh [S1].\n\n[S1]",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 1.45,
+      "prompt_tokens": 710,
+      "completion_tokens": 22,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "system-error",
+      "kind": "doc",
+      "question": "Creating a ResourceManager fails with VI_ERROR_SYSTEM_ERROR, unknown system error. What can I try?",
+      "answer": "If you encounter a `VI_ERROR_SYSTEM_ERROR` when creating a `pyvisa.ResourceManager`, first enable screen logging to verify that PyVISA is correctly finding the DLL files [S1].\n\n```python\nimport pyvisa\npyvisa.log_to_screen()\nrm = pyvisa.ResourceManager()\n```\n\nIf the DLLs are found but the error persists, the issue may be due to corrupted `ctypes` components, which can be resolved by reinstalling Python [S1].",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.22,
+      "prompt_tokens": 1491,
+      "completion_tokens": 101,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "hex-ascii",
+      "kind": "doc",
+      "question": "My scope sends its trace as hexadecimal numbers in ASCII. How do I get integers back?",
+      "answer": "You can use the `converter` parameter in `query_ascii_values` to specify hexadecimal formatting. Set `converter='x'` to parse the incoming ASCII hex values as integers.\n\n```python\n>>> values = inst.query_ascii_values('CURV?', converter='x')\n```\n\n[S2]",
+      "refused": false,
+      "cited": [
+        "S2"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.17,
+      "prompt_tokens": 1861,
+      "completion_tokens": 62,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "dollar-sep",
+      "kind": "doc",
+      "question": "The values my device returns are separated by dollar signs instead of commas. How do I parse them?",
+      "answer": "You can specify the `separator` argument in `query_ascii_values` to handle non-standard separators like dollar signs [S1].\n\n```python\n>>> values = inst.query_ascii_values('CURV?', separator='$')\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.37,
+      "prompt_tokens": 1402,
+      "completion_tokens": 47,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "hp-header",
+      "kind": "doc",
+      "question": "My instrument uses HP-style headers on its binary blocks. What do I change?",
+      "answer": "To handle HP-style headers, you should pass `header_fmt='hp'` to the `read_binary_values` or `query_binary_values` method [S1].\n\n```python\nvalues = inst.query_binary_values('CURV?', header_fmt='hp')\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.76,
+      "prompt_tokens": 1579,
+      "completion_tokens": 56,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "no-header",
+      "kind": "doc",
+      "question": "The binary data from my device has no header at all. How do I read it?",
+      "answer": "To read binary data that has no header, you should pass `header_fmt='empty'` to the `read_binary_values` or `query_binary_values` method [S1].\n\n```python\nvalues = inst.query_binary_values('CURV?', header_fmt='empty')\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.73,
+      "prompt_tokens": 1499,
+      "completion_tokens": 59,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "conn-lost",
+      "kind": "doc",
+      "question": "Reading a large binary trace fails with VI_ERROR_CONN_LOST even though small reads work. Any workaround?",
+      "answer": "You can try passing a different value for the `chunk_size` argument, as the default is 20*1024 [S1]. Changing this parameter has been used to work around issues where reading fails with `VI_ERROR_CONN_LOST` or causes Python to crash [S1]. Note that using larger chunk sizes may also speed up the transfer [S1].",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.99,
+      "prompt_tokens": 1443,
+      "completion_tokens": 78,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "progress-bar",
+      "kind": "doc",
+      "question": "Can I show a progress bar while downloading a big waveform?",
+      "answer": "Yes, you can show a progress bar by passing a monitoring interface object, such as a `tqdm` progress bar, to the `read_binary_values()` method [S1]. The progress bar must be initialized with the total number of bytes to be downloaded and must implement an `update()` method [S1]. You can calculate the total bytes using `pyvisa.util.message_length` [S1].\n\nHere is an example:\n\n```python\nfrom pyvisa import resource_manager\nfrom pyvisa.util import message_length\nfrom tqdm import tqdm\n\ninst = resource_manager.open_resource(...)\n\n# calculate the total number of bytes to download\ntotal_bytes = message_length(num_points=1000, datatype=\"f\", header_format=\"ieee\")\n\n# create a download monitor and use it when downloading data\nwith tqdm(desc=\"Downloading\", unit=\"B\", total=total_bytes) as progress_bar:\n    inst.write(\"CURV?\")\n    data = inst.read_binary_values(monitoring_interface=progress_bar)\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 5.02,
+      "prompt_tokens": 1675,
+      "completion_tokens": 213,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "keithley-buffer",
+      "kind": "doc",
+      "question": "My Keithley 2000 returns its whole buffer and PyVISA can't tell how many bytes to expect. What do I do?",
+      "answer": "You can pass the expected number of points using the `data_points` keyword argument when reading binary values [S1]. The number of bytes will be inferred from the datatype of the block [S1].",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.74,
+      "prompt_tokens": 1811,
+      "completion_tokens": 42,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "upload-ascii",
+      "kind": "doc",
+      "question": "How do I send a list of numbers to my arbitrary waveform generator as text?",
+      "answer": "To send a list of numbers as text (ASCII) to an arbitrary waveform generator, use the `write_ascii_values` method [S2]. You can specify the command, the waveform name, and the list of values [S2].\n\n```python\n>>> values = list(range(100))\n>>> inst.write_ascii_values('WLISt:WAVeform:DATA somename,', values)\n```\n\nYou can also specify a converter code or separator if needed [S2].",
+      "refused": false,
+      "cited": [
+        "S2"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.37,
+      "prompt_tokens": 1526,
+      "completion_tokens": 103,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "upload-binary",
+      "kind": "doc",
+      "question": "How do I upload a waveform to my function generator in binary instead of text?",
+      "answer": "To upload a waveform in binary format, use the `write_binary_values` method on your instrument instance [S1]. You can specify the waveform name and the data array, and optionally define the `datatype` and `endianness` [S1]. If your data is already in a `bytes` object, you can use the `\"s\"` format [S1].\n\n```python\n>>> values = list(range(100))\n>>> inst.write_binary_values('WLISt:WAVeform:DATA somename,', values)\n>>> inst.write_binary_values('WLISt:WAVeform:DATA somename,', values, datatype='d', is_big_endian=False)\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.7,
+      "prompt_tokens": 1259,
+      "completion_tokens": 145,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "default-endian",
+      "kind": "doc",
+      "question": "Which byte order does PyVISA assume for binary data unless I say otherwise?",
+      "answer": "PyVISA assumes little-endian as the default byte order for binary data [S1].\n\n```python\n# Default is little-endian\nvalues = inst.query_binary_values('CURV?', datatype='d')\n\n# Explicitly set to big-endian if needed\nvalues = inst.query_binary_values('CURV?', datatype='d', is_big_endian=True)\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.09,
+      "prompt_tokens": 1517,
+      "completion_tokens": 78,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "callback-srq",
+      "kind": "doc",
+      "question": "Instead of waiting in a loop, I want a function of mine to run when the instrument raises a service request. How?",
+      "answer": "To run a function when an instrument raises a service request without waiting in a loop, you should register a handler using `constants.EventMechanism.handler` [S3].\n\nFirst, define a function that accepts `resource`, `event`, and `user_handle` as arguments [S3]. Then, wrap this function using `instr.wrap_handler()` and install it with `instr.install_handler()` [S3]. Finally, enable the event using `instr.enable_event()` with the handler mechanism [S3].\n\n```python\nfrom pyvisa import ResourceManager, constants\n\ndef handle_event(resource, event, user_handle):\n    print(f\"Handled event {event.event_type} on {resource}\")\n\nrm = ResourceManager()\nwith rm.open_resource(\"TCPIP::192.168.0.2::INSTR\") as instr:\n    event_type = constants.EventType.service_request\n    event_mech = constants.EventMechanism.handler\n    \n    wrapped = instr.wrap_handler(handle_event)\n    user_handle = instr.install_handler(event_type, wrapped, 42)\n    instr.enable_event(event_type, event_mech, None)\n    \n    # Instrument specific code to enable service request\n    instr.write(\"*SRE 1\")\n    instr.write(\"INIT\")\n    \n    # Wait for the event to occur (blocking)\n    while not instr.called:\n        from time import sleep\n        sleep(10)\n        \n    instr.disable_event(event_type, event_mech)\n    instr.uninstall_handler(event_type, wrapped, user_handle)\n```",
+      "refused": false,
+      "cited": [
+        "S3"
+      ],
+      "invalid_citations": [],
+      "latency_s": 6.81,
+      "prompt_tokens": 1709,
+      "completion_tokens": 324,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "handler-signature",
+      "kind": "doc",
+      "question": "After wrapping my event handler, what arguments does it receive?",
+      "answer": "After wrapping an event handler using the `wrap_handler` method, the function receives three arguments: `resource`, `event`, and `user_handle` [S1].\n\n```python\ndef handle_event(resource, event, user_handle):\n    resource.called = True\n    print(f\"Handled event {event.event_type} on {resource}\")\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.95,
+      "prompt_tokens": 2335,
+      "completion_tokens": 73,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "both-mechanisms",
+      "kind": "doc",
+      "question": "Can I use the event queue and a handler at the same time?",
+      "answer": "Yes, PyVISA supports using both mechanisms (storing events in a queue and calling a dedicated handler function) and tries to provide a convenient interface to both [S2].\n\nThe documentation does not provide a specific code example demonstrating their simultaneous use, but it confirms that both are supported [S2].",
+      "refused": false,
+      "cited": [
+        "S2"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.55,
+      "prompt_tokens": 1266,
+      "completion_tokens": 63,
+      "tool_used": false,
+      "missing": [
+        [
+          "\\ball\\b"
+        ]
+      ],
+      "correct": false,
+      "citation_ok": true,
+      "pass": false
+    },
+    {
+      "id": "install",
+      "kind": "doc",
+      "question": "How do I install PyVISA?",
+      "answer": "You can install PyVISA using pip [S1]. The command is:\n\n```bash\n$ pip install -U pyvisa\n```\n\nYou also need a suitable backend, such as National Instruments's VISA or Keysight IO Library Suite, which must be downloaded and installed separately [S2]. Alternatively, you can install `PyVISA-Py`, a pure Python implementation, using:\n\n```bash\n$ pip install -U pyvisa-py\n```\n\n[S2]",
+      "refused": false,
+      "cited": [
+        "S1",
+        "S2"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.97,
+      "prompt_tokens": 1296,
+      "completion_tokens": 101,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "vendor-free",
+      "kind": "doc",
+      "question": "Do I have to pay for the NI or Keysight VISA library to use PyVISA?",
+      "answer": "No, you do not have to pay for them. Both National Instruments's VISA and Keysight IO Library Suite can be downloaded for free, and you only need the driver library, not a development environment [S5].",
+      "refused": false,
+      "cited": [
+        "S5"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.7,
+      "prompt_tokens": 1730,
+      "completion_tokens": 46,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "pyvisa-py-coverage",
+      "kind": "doc",
+      "question": "Does the pure Python backend support everything NI-VISA does?",
+      "answer": "No, the pure Python backend (PyVISA-Py) does not support everything NI-VISA does. It implements only a limited subset of the VISA standard and does not support all protocols on all bus systems [S2].",
+      "refused": false,
+      "cited": [
+        "S2"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.59,
+      "prompt_tokens": 1593,
+      "completion_tokens": 48,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "dev-version",
+      "kind": "doc",
+      "question": "How do I install the latest development version?",
+      "answer": "To install the latest development version of PyVISA, you can use pip to install directly from the GitHub repository [S1]. Note that this is done at your own risk [S1].\n\n```bash\n$ pip install -U git+https://github.com/pyvisa/pyvisa.git\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.48,
+      "prompt_tokens": 1297,
+      "completion_tokens": 62,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "closed-session",
+      "kind": "doc",
+      "question": "I closed my instrument and now reading its session raises an exception. Is that expected?",
+      "answer": "Yes, that is expected. If the resource is closed, accessing the session raises an `InvalidSession` exception [S1].\n\n```python\n>>> inst.close()\n>>> inst.session\nTraceback (most recent call last):\n...\npyvisa.errors.InvalidSession: Invalid session handle. The resource might be closed.\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.98,
+      "prompt_tokens": 1615,
+      "completion_tokens": 69,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "force-class",
+      "kind": "doc",
+      "question": "PyVISA picks the wrong Python class for my serial device. Can I choose it myself?",
+      "answer": "Yes, you can force the Resource Python class by using the `resource_pyclass` argument in the `open_resource` method [S1]. For example, to explicitly use `MessageBasedResource` for a serial device, you can pass it as follows:\n\n```python\n>>> from pyvisa.resources import MessageBasedResource\n>>> inst = rm.open('ASRL1::INSTR', resource_pyclass=MessageBasedResource)\n```",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.58,
+      "prompt_tokens": 1939,
+      "completion_tokens": 90,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "raw-attribute",
+      "kind": "doc",
+      "question": "How do I set a low-level VISA attribute that has no friendly Python name?",
+      "answer": "You can set low-level VISA attributes using the `set_visa_attribute` method on the resource object, providing the proper constant values from `pyvisa.constants` [S5]. Alternatively, you can access the `VisaLibrary` instance via `rm.visalib` to call low-level functions directly, though this requires knowing the function declaration and handling type conversions manually [S4].\n\n```python\nfrom pyvisa import constants, ResourceManager\n\nrm = ResourceManager()\ninstr = rm.open_resource('TCPIP0::1.2.3.4::56789::SOCKET')\n\n# Using the high-level helper method\ninstr.set_visa_attribute(constants.VI_ATTR_SUPPRESS_END_EN, constants.VI_TRUE)\n\n# Or accessing low-level functions directly via VisaLibrary\n# rm.visalib.viSetAttribute(instr.session, constants.VI_ATTR_SUPPRESS_END_EN, constants.VI_TRUE)\n```",
+      "refused": false,
+      "cited": [
+        "S5",
+        "S4"
+      ],
+      "invalid_citations": [],
+      "latency_s": 4.82,
+      "prompt_tokens": 1638,
+      "completion_tokens": 192,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "shell-timeout",
+      "kind": "doc",
+      "question": "In the interactive shell, how do I check the timeout and change it to 1.5 seconds?",
+      "answer": "In the PyVISA shell, you can check the current timeout by typing `timeout` and change it to 1.5 seconds (1500 milliseconds) by typing `timeout 1500` [S1]. Note that PyVISA uses milliseconds for timeout values [S3].\n\n```text\n(open) timeout\nTimeout: 2000ms\n\n(open) timeout 1500\nDone\n```",
+      "refused": false,
+      "cited": [
+        "S1",
+        "S3"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.18,
+      "prompt_tokens": 1551,
+      "completion_tokens": 92,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "shell-attrs",
+      "kind": "doc",
+      "question": "In the interactive shell, how do I see every VISA attribute of the instrument I opened?",
+      "answer": "In the PyVISA shell, you can see the list of all VISA attributes by typing `attr` [S1]. The shell also supports tab completion for commands [S5].\n\n```text\n(visa) attr\n```",
+      "refused": false,
+      "cited": [
+        "S1",
+        "S5"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.71,
+      "prompt_tokens": 1594,
+      "completion_tokens": 49,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "shell-no-ni",
+      "kind": "doc",
+      "question": "I don't have NI-VISA installed. Can I still use the interactive shell?",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 1.97,
+      "prompt_tokens": 1496,
+      "completion_tokens": 13,
+      "tool_used": false,
+      "missing": [
+        [
+          "-b py",
+          "--backend py"
+        ]
+      ],
+      "correct": false,
+      "citation_ok": false,
+      "pass": false
+    },
+    {
+      "id": "why-ms",
+      "kind": "doc",
+      "question": "Why are timeouts in milliseconds rather than seconds?",
+      "answer": "Timeouts are in milliseconds to make PyVISA coherent with all other VISA implementations, such as the C-API, LabVIEW, and .NET, which all use milliseconds [S2]. This standardization makes it easier to migrate to PyVISA and allows users to benefit from other VISA documentation without extra cognitive effort [S2].",
+      "refused": false,
+      "cited": [
+        "S2"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.9,
+      "prompt_tokens": 1535,
+      "completion_tokens": 70,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "no-hardware",
+      "kind": "doc",
+      "question": "Can I test my instrument code without the instrument connected?",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 2.09,
+      "prompt_tokens": 1591,
+      "completion_tokens": 13,
+      "tool_used": false,
+      "missing": [
+        [
+          "sim"
+        ]
+      ],
+      "correct": false,
+      "citation_ok": false,
+      "pass": false
+    },
+    {
+      "id": "ci-hardware",
+      "kind": "doc",
+      "question": "Why can't PyVISA's own tests run against real instruments on GitHub Actions?",
+      "answer": "PyVISA's tests require access to actual instruments and a VISA library implementation, which are not available on conventional hosted CI platforms like GitHub Actions [S1]. Additionally, the tests requiring these hardware resources use self-hosted runners, which GitHub Actions does not allow to run on forks due to security reasons [S1].",
+      "refused": false,
+      "cited": [
+        "S1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 3.34,
+      "prompt_tokens": 2058,
+      "completion_tokens": 66,
+      "tool_used": false,
+      "missing": [],
+      "correct": true,
+      "citation_ok": true,
+      "pass": true
+    },
+    {
+      "id": "class-selection",
+      "kind": "doc",
+      "question": "How does PyVISA decide which kind of object open_resource returns?",
+      "answer": "PyVISA returns an instance of a specific resource class depending on the resource type [S5].\n\n```python\n# Example of opening a resource\nrm = pyvisa.ResourceManager()\ninst = rm.open_resource('GPIB0::1::INSTR')\n```",
+      "refused": false,
+      "cited": [
+        "S5"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.37,
+      "prompt_tokens": 952,
+      "completion_tokens": 58,
+      "tool_used": false,
+      "missing": [
+        [
+          "resource name"
+        ]
+      ],
+      "correct": false,
+      "citation_ok": false,
+      "pass": false
+    },
+    {
+      "id": "oos-kinesis",
+      "kind": "refuse",
+      "question": "How do I move a Thorlabs motorised stage with the Kinesis library?",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 2.3,
+      "prompt_tokens": 1814,
+      "completion_tokens": 13,
+      "tool_used": false,
+      "pass": true
+    },
+    {
+      "id": "oos-rigol",
+      "kind": "refuse",
+      "question": "What SCPI command reads channel 1 voltage on a Rigol DS1054Z?",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 2.16,
+      "prompt_tokens": 1698,
+      "completion_tokens": 13,
+      "tool_used": false,
+      "pass": true
+    },
+    {
+      "id": "oos-matplotlib",
+      "kind": "refuse",
+      "question": "How do I plot my waveform with matplotlib?",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 1.21,
+      "prompt_tokens": 615,
+      "completion_tokens": 13,
+      "tool_used": false,
+      "pass": true
+    },
+    {
+      "id": "oos-fft",
+      "kind": "refuse",
+      "question": "Write me a Python function that computes an FFT of my trace.",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 2.1,
+      "prompt_tokens": 1608,
+      "completion_tokens": 13,
+      "tool_used": false,
+      "pass": true
+    },
+    {
+      "id": "oos-pinout",
+      "kind": "refuse",
+      "question": "What is the pinout of a GPIB cable?",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 2.25,
+      "prompt_tokens": 1752,
+      "completion_tokens": 13,
+      "tool_used": false,
+      "pass": true
+    },
+    {
+      "id": "oos-gpio",
+      "kind": "refuse",
+      "question": "How do I configure the GPIO pins on a Raspberry Pi?",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 1.5,
+      "prompt_tokens": 896,
+      "completion_tokens": 13,
+      "tool_used": false,
+      "pass": true
+    },
+    {
+      "id": "oos-webfw",
+      "kind": "refuse",
+      "question": "Which Python web framework is best for a lab dashboard?",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 2.06,
+      "prompt_tokens": 1559,
+      "completion_tokens": 13,
+      "tool_used": false,
+      "pass": true
+    },
+    {
+      "id": "oos-calibrate",
+      "kind": "refuse",
+      "question": "How do I calibrate the power meter's wavelength correction?",
+      "answer": "The PyVISA documentation I have does not cover this.",
+      "refused": true,
+      "cited": [],
+      "invalid_citations": [],
+      "latency_s": 2.2,
+      "prompt_tokens": 1583,
+      "completion_tokens": 13,
+      "tool_used": true,
+      "pass": true
+    },
+    {
+      "id": "tool-alive",
+      "kind": "tool",
+      "question": "Is the power meter responding? Which model is it?",
+      "answer": "Yes, the power meter is responding [T1]. It is a Thorlabs PM100USB model [T1].",
+      "refused": false,
+      "cited": [
+        "T1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.25,
+      "prompt_tokens": 1538,
+      "completion_tokens": 27,
+      "tool_used": true,
+      "missing": [],
+      "correct": true,
+      "pass": true
+    },
+    {
+      "id": "tool-reading",
+      "kind": "tool",
+      "question": "Give me the live reading from the PM100.",
+      "answer": "The live reading from the PM100 is 123.4 mW [T1].",
+      "refused": false,
+      "cited": [
+        "T1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 2.12,
+      "prompt_tokens": 1444,
+      "completion_tokens": 23,
+      "tool_used": true,
+      "missing": [],
+      "correct": true,
+      "pass": true
+    },
+    {
+      "id": "tool-firmware",
+      "kind": "tool",
+      "question": "What firmware version is the power meter running?",
+      "answer": "The power meter is running firmware version 1.7.0 [T1].",
+      "refused": false,
+      "cited": [
+        "T1"
+      ],
+      "invalid_citations": [],
+      "latency_s": 1.74,
+      "prompt_tokens": 1061,
+      "completion_tokens": 18,
+      "tool_used": true,
+      "missing": [],
+      "correct": true,
+      "pass": true
+    }
+  ]
+}
