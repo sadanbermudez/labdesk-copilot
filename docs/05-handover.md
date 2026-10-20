@@ -31,9 +31,10 @@ labdesk --port 8790                              # http://127.0.0.1:8790
 | Change | Steps |
 |---|---|
 | New PyVISA release | Replace `corpus/pyvisa/` with the new `docs/source`, update `DOCS_VERSION` in `corpus.py`, run the full eval, compare with the last report before deploying |
-| Different model | Set `LABDESK_MODEL` (and URL/key), run `python evals/run_eval.py`, compare `docs/report.md` with the previous one |
+| Different model | Set `LABDESK_MODEL` (and URL/key), run `python evals/run_eval.py` and `--set heldout`, compare both reports with the previous ones |
 | Prompt change | Edit `SYSTEM` in `answer.py`, run the full eval; never ship a prompt change without it |
 | Add a question the bot got wrong | Add a line to `evals/make_questions.py` with gold files and required facts checked against the docs, regenerate `questions.jsonl` |
+| Judge a change honestly | Develop against the development set only, then run `python evals/run_eval.py --set heldout` once. If you change anything because of a held-out failure, move those questions into the development set and write a new held-out set before quoting a number |
 
 ## Incidents
 
