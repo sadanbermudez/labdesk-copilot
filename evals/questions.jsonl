@@ -34,7 +34,7 @@
 {"id": "oos-buy", "kind": "refuse", "question": "Which oscilloscope should I buy for my lab?", "gold": [], "must": []}
 {"id": "oos-scpi", "kind": "refuse", "question": "What SCPI command sets the averaging on a Keysight 34465A multimeter?", "gold": [], "must": []}
 {"id": "oos-matlab", "kind": "refuse", "question": "How do I connect to my instrument from MATLAB?", "gold": [], "must": []}
-{"id": "oos-price", "kind": "refuse", "question": "How much does an NI-VISA licence cost?", "gold": [], "must": []}
+{"id": "oos-price", "kind": "refuse", "question": "How much does a Keysight 34465A multimeter cost?", "gold": [], "must": []}
 {"id": "oos-cooking", "kind": "refuse", "question": "What is a good recipe for paella?", "gold": [], "must": []}
 {"id": "oos-labview", "kind": "refuse", "question": "How do I write a LabVIEW VI to read a GPIB instrument?", "gold": [], "must": []}
 {"id": "tool-power", "kind": "tool", "question": "What does the power meter read right now?", "gold": [], "must": [["123\\.4"], ["mW", "milliwatt"]]}
