@@ -15,31 +15,33 @@ This repository is a **simulated forward-deployed engagement**: the client in th
 | What "good" means before anyone relies on it | [03-eval-spec.md](docs/03-eval-spec.md) |
 | Design and the decisions behind it (six ADRs) | [04-architecture.md](docs/04-architecture.md) |
 | Running, monitoring and changing it after handover | [05-handover.md](docs/05-handover.md) |
-| Measured results, every failure listed | [report.md](docs/report.md) |
+| Measured results, every failure listed | [report-heldout.md](docs/report-heldout.md), [report.md](docs/report.md) |
 
 ## Results
 
-41 questions (33 answerable from the docs, 6 off-topic, 2 for the instrument), local `Qwen3.6-35B-A3B` Q4 on an AMD Ryzen AI Max+ 392 laptop, temperature 0. Full report with every failure: [docs/report.md](docs/report.md).
+Two question sets, local `Qwen3.6-35B-A3B` Q4 on an AMD Ryzen AI Max+ 392 laptop, temperature 0. The **held-out set** was written after development, phrased like real tickets, and committed before the system ever saw it ([07ba575](https://github.com/sadanbermudez/labdesk-copilot/commit/07ba575)); it is the number to quote. Full reports with every failure: [held-out](docs/report-heldout.md), [development](docs/report.md).
 
-| Metric | Result | Target |
-|---|---|---|
-| Correct answers (in-scope) | **31 / 33** (0.94) | ≥ 0.85 |
-| Cites a section that actually answers it | **32 / 33** (0.97) | ≥ 0.85 |
-| Off-topic questions refused | **6 / 6** | ≥ 0.80 |
-| In-scope questions wrongly refused | 1 / 33 | ≤ 10% |
-| Instrument tool questions | 2 / 2 | 2 / 2 |
-| Latency p50 / p95 | 3.3 s / 5.6 s | p95 < 10 s |
-| Tokens per question | 1,906 in, 63 out | |
-| Cost per 1,000 questions | $0 local; $0.32 at an illustrative $0.15 / $0.60 per M tokens | |
+| Metric | Held-out (42 q) | Development (41 q) | Target |
+|---|---|---|---|
+| Correct answers (in-scope) | **26 / 31** (0.84) | 31 / 33 (0.94) | ≥ 0.85 |
+| Cites a section that actually answers it | **27 / 31** (0.87) | 32 / 33 (0.97) | ≥ 0.85 |
+| Off-topic questions refused | **8 / 8** | 6 / 6 | ≥ 0.80 |
+| In-scope questions wrongly refused | 3 / 31 | 1 / 33 | ≤ 10% |
+| Instrument tool questions | 3 / 3 | 2 / 2 | all |
+| Retrieval recall@5 / MRR | 0.90 / 0.79 | 1.00 / 0.94 | ≥ 0.90 |
+| Latency p50 / p95 | 2.7 s / 4.8 s | 3.3 s / 5.0 s | p95 < 10 s |
+| Cost per 1,000 questions | $0 local; $0.27 at an illustrative $0.15 / $0.60 per M tokens | $0.33 | |
 
-**The two failures, both real:**
+**The held-out set misses the correctness target by one answer.** That is the point of having one: the development score (0.94) measured how well the system fits questions its builder had seen. The five held-out failures, all real:
 
-- *"How do I see which instruments are connected?"* shares no words with `list_resources`, so BM25 never retrieved the section that answers it. The model did the right thing with what it had and refused instead of guessing. This is the paraphrase weakness predicted in ADR-1.
-- *"How do I list every resource?"* The model copied `'?'` where the docs say `'?*'`. A fluent, wrong, cited answer: the exact failure the client feared, caught by the eval and not by reading the answer.
+- **Three retrieval misses on reworded questions** ("can I test without the instrument connected", "can I use the shell without NI-VISA", "how does it decide which object to return"). BM25 never surfaced the section, and in two of the three the model correctly refused rather than guess. This is the paraphrase weakness predicted in [ADR-1](docs/04-architecture.md), now measured: recall@5 drops from 1.00 to 0.90 and MRR from 0.94 to 0.79.
+- **One answer plus a refusal.** Asked whether PyVISA is an NI product, the model answered "no" correctly, then appended the refusal sentence.
+- **One incomplete answer.** Asked whether the event queue and a handler can run together, it said yes but missed `EventMechanism.all`.
+- The trap question (a power-meter calibration question that triggers the instrument tool but that nothing answers) was correctly refused.
 
-I have not tuned anything to make these two pass. With only 33 questions there is no held-out set, so a synonym list or prompt tweak aimed at them would be teaching to the test. The next step is a second, unseen question set, then hybrid retrieval (BM25 plus embeddings) judged on it.
+**Development set:** two real failures remain there too (a paraphrase miss, and the model writing `'?'` where the docs say `'?*'`). Across three runs, four failures turned out to be faults in my evaluation, not the model (two checker patterns, an incomplete gold list, and an off-topic question the docs actually answer). Each is logged with its evidence in [03-eval-spec.md](docs/03-eval-spec.md); raw results of every run are kept in `evals/results/`.
 
-**Run 1** scored 29 / 33. Three of its four extra failures were faults in my checker, not the model; each correction and its evidence is logged in [03-eval-spec.md](docs/03-eval-spec.md), and run 1's raw results are kept in `evals/results/`.
+**What happens next, and why in this order.** Retrieval is the bottleneck on both sets, so the next change is hybrid retrieval (BM25 plus embeddings), developed against the development set only. Because the held-out failures are now known, this held-out set is spent once that change is made: its questions move to the development set and a new held-out set is written before the change is judged.
 
 ## How it works
 

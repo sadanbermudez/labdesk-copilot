@@ -40,7 +40,7 @@ Q = [
  ("oos-buy", "Which oscilloscope should I buy for my lab?", [], "refuse"),
  ("oos-scpi", "What SCPI command sets the averaging on a Keysight 34465A multimeter?", [], "refuse"),
  ("oos-matlab", "How do I connect to my instrument from MATLAB?", [], "refuse"),
- ("oos-price", "How much does an NI-VISA licence cost?", [], "refuse"),
+ ("oos-price", "How much does a Keysight 34465A multimeter cost?", [], "refuse"),
  ("oos-cooking", "What is a good recipe for paella?", [], "refuse"),
  ("oos-labview", "How do I write a LabVIEW VI to read a GPIB instrument?", [], "refuse"),
  # instrument tool

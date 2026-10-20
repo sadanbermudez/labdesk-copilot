@@ -1,0 +1,42 @@
+{"id": "arch-mismatch", "kind": "doc", "question": "Python refuses to load the VISA library and complains about the wrong architecture. How do I fix it?", "gold": ["faq/faq.rst", "introduction/getting.rst", "faq/getting_nivisa.rst"], "must": [["match", "same"]]}
+{"id": "ni-endorsed", "kind": "doc", "question": "Is PyVISA an official National Instruments product?", "gold": ["faq/faq.rst"], "must": [["\\bno\\b", "independent", "not endorsed"]]}
+{"id": "maintainer", "kind": "doc", "question": "Who maintains PyVISA these days?", "gold": ["faq/faq.rst"], "must": [["Dartiailh"]]}
+{"id": "system-error", "kind": "doc", "question": "Creating a ResourceManager fails with VI_ERROR_SYSTEM_ERROR, unknown system error. What can I try?", "gold": ["faq/faq.rst"], "must": [["log_to_screen", "reinstall"]]}
+{"id": "hex-ascii", "kind": "doc", "question": "My scope sends its trace as hexadecimal numbers in ASCII. How do I get integers back?", "gold": ["introduction/rvalues.rst"], "must": [["converter"], ["['\\\"]x['\\\"]"]]}
+{"id": "dollar-sep", "kind": "doc", "question": "The values my device returns are separated by dollar signs instead of commas. How do I parse them?", "gold": ["introduction/rvalues.rst"], "must": [["separator"]]}
+{"id": "hp-header", "kind": "doc", "question": "My instrument uses HP-style headers on its binary blocks. What do I change?", "gold": ["introduction/rvalues.rst"], "must": [["header_fmt"], ["\\bhp\\b"]]}
+{"id": "no-header", "kind": "doc", "question": "The binary data from my device has no header at all. How do I read it?", "gold": ["introduction/rvalues.rst"], "must": [["header_fmt"], ["empty"]]}
+{"id": "conn-lost", "kind": "doc", "question": "Reading a large binary trace fails with VI_ERROR_CONN_LOST even though small reads work. Any workaround?", "gold": ["introduction/rvalues.rst"], "must": [["chunk_size"]]}
+{"id": "progress-bar", "kind": "doc", "question": "Can I show a progress bar while downloading a big waveform?", "gold": ["introduction/rvalues.rst"], "must": [["monitoring_interface", "tqdm"]]}
+{"id": "keithley-buffer", "kind": "doc", "question": "My Keithley 2000 returns its whole buffer and PyVISA can't tell how many bytes to expect. What do I do?", "gold": ["introduction/rvalues.rst"], "must": [["data_points"]]}
+{"id": "upload-ascii", "kind": "doc", "question": "How do I send a list of numbers to my arbitrary waveform generator as text?", "gold": ["introduction/rvalues.rst"], "must": [["write_ascii_values"]]}
+{"id": "upload-binary", "kind": "doc", "question": "How do I upload a waveform to my function generator in binary instead of text?", "gold": ["introduction/rvalues.rst"], "must": [["write_binary_values"]]}
+{"id": "default-endian", "kind": "doc", "question": "Which byte order does PyVISA assume for binary data unless I say otherwise?", "gold": ["introduction/rvalues.rst"], "must": [["little"]]}
+{"id": "callback-srq", "kind": "doc", "question": "Instead of waiting in a loop, I want a function of mine to run when the instrument raises a service request. How?", "gold": ["introduction/event_handling.rst"], "must": [["install_handler"]]}
+{"id": "handler-signature", "kind": "doc", "question": "After wrapping my event handler, what arguments does it receive?", "gold": ["introduction/event_handling.rst"], "must": [["resource"], ["event"], ["user_handle"]]}
+{"id": "both-mechanisms", "kind": "doc", "question": "Can I use the event queue and a handler at the same time?", "gold": ["introduction/event_handling.rst"], "must": [["\\ball\\b"]]}
+{"id": "install", "kind": "doc", "question": "How do I install PyVISA?", "gold": ["introduction/getting.rst"], "must": [["pip install"]]}
+{"id": "vendor-free", "kind": "doc", "question": "Do I have to pay for the NI or Keysight VISA library to use PyVISA?", "gold": ["introduction/getting.rst"], "must": [["free"]]}
+{"id": "pyvisa-py-coverage", "kind": "doc", "question": "Does the pure Python backend support everything NI-VISA does?", "gold": ["introduction/getting.rst"], "must": [["subset", "limited", "not support"]]}
+{"id": "dev-version", "kind": "doc", "question": "How do I install the latest development version?", "gold": ["introduction/getting.rst"], "must": [["git\\+https"]]}
+{"id": "closed-session", "kind": "doc", "question": "I closed my instrument and now reading its session raises an exception. Is that expected?", "gold": ["introduction/resources.rst"], "must": [["InvalidSession", "closed"]]}
+{"id": "force-class", "kind": "doc", "question": "PyVISA picks the wrong Python class for my serial device. Can I choose it myself?", "gold": ["introduction/resources.rst"], "must": [["resource_pyclass"]]}
+{"id": "raw-attribute", "kind": "doc", "question": "How do I set a low-level VISA attribute that has no friendly Python name?", "gold": ["introduction/resources.rst"], "must": [["set_visa_attribute"]]}
+{"id": "shell-timeout", "kind": "doc", "question": "In the interactive shell, how do I check the timeout and change it to 1.5 seconds?", "gold": ["introduction/shell.rst"], "must": [["timeout 1500"]]}
+{"id": "shell-attrs", "kind": "doc", "question": "In the interactive shell, how do I see every VISA attribute of the instrument I opened?", "gold": ["introduction/shell.rst", "introduction/resources.rst"], "must": [["\\battr\\b"]]}
+{"id": "shell-no-ni", "kind": "doc", "question": "I don't have NI-VISA installed. Can I still use the interactive shell?", "gold": ["introduction/shell.rst"], "must": [["-b py", "--backend py"]]}
+{"id": "why-ms", "kind": "doc", "question": "Why are timeouts in milliseconds rather than seconds?", "gold": ["faq/migrating.rst"], "must": [["C-API", "LabVIEW", "\\.NET", "other VISA"]]}
+{"id": "no-hardware", "kind": "doc", "question": "Can I test my instrument code without the instrument connected?", "gold": ["introduction/shell.rst", "advanced/backends.rst"], "must": [["sim"]]}
+{"id": "ci-hardware", "kind": "doc", "question": "Why can't PyVISA's own tests run against real instruments on GitHub Actions?", "gold": ["advanced/continuous_integration.rst"], "must": [["self-hosted", "hardware", "fork"]]}
+{"id": "class-selection", "kind": "doc", "question": "How does PyVISA decide which kind of object open_resource returns?", "gold": ["introduction/resources.rst", "introduction/communication.rst"], "must": [["resource name"]]}
+{"id": "oos-kinesis", "kind": "refuse", "question": "How do I move a Thorlabs motorised stage with the Kinesis library?", "gold": [], "must": []}
+{"id": "oos-rigol", "kind": "refuse", "question": "What SCPI command reads channel 1 voltage on a Rigol DS1054Z?", "gold": [], "must": []}
+{"id": "oos-matplotlib", "kind": "refuse", "question": "How do I plot my waveform with matplotlib?", "gold": [], "must": []}
+{"id": "oos-fft", "kind": "refuse", "question": "Write me a Python function that computes an FFT of my trace.", "gold": [], "must": []}
+{"id": "oos-pinout", "kind": "refuse", "question": "What is the pinout of a GPIB cable?", "gold": [], "must": []}
+{"id": "oos-gpio", "kind": "refuse", "question": "How do I configure the GPIO pins on a Raspberry Pi?", "gold": [], "must": []}
+{"id": "oos-webfw", "kind": "refuse", "question": "Which Python web framework is best for a lab dashboard?", "gold": [], "must": []}
+{"id": "oos-calibrate", "kind": "refuse", "question": "How do I calibrate the power meter's wavelength correction?", "gold": [], "must": []}
+{"id": "tool-alive", "kind": "tool", "question": "Is the power meter responding? Which model is it?", "gold": [], "must": [["PM100USB"]]}
+{"id": "tool-reading", "kind": "tool", "question": "Give me the live reading from the PM100.", "gold": [], "must": [["123\\.4"]]}
+{"id": "tool-firmware", "kind": "tool", "question": "What firmware version is the power meter running?", "gold": [], "must": [["1\\.7\\.0"]]}
